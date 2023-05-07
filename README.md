@@ -20,16 +20,16 @@ This repository is the official implementation of the [CVPR 2023](https://cvpr20
 
 <p align="center">
   <a href='https://ps.is.mpg.de/uploads_file/attachment/attachment/711/CVPR2023_Multiview_Face_Capture.pdf'>
-    <img src='https://img.shields.io/badge/Paper-PDF-green?style=flat&logo=arXiv&logoColor=green' alt='Paper PDF'>
+    <img src='https://img.shields.io/badge/PDF-Paper-2D963D?style=flat&logo=Adobe-Acrobat-Reader&logoColor=red' alt='Paper PDF'>
   </a> 
   <a href='https://ps.is.mpg.de/uploads_file/attachment/attachment/712/CVPR2023_Multiview_Face_Capture_supmat.pdf'>
-    <img src='https://img.shields.io/badge/Paper-PDF-green?style=flat&logo=arXiv&logoColor=green' alt='Supplementary Material'>
+    <img src='https://img.shields.io/badge/PDF-Sup.Mat.-2D963D?style=flat&logo=Adobe-Acrobat-Reader&logoColor=red' alt='Sup. Mat. PDF'>
   </a>     
   <a href='TODO_ADD_YOUTUBE_LINK' style='padding-left: 0.5rem;'>
-    <img src='https://img.shields.io/badge/Youtube-Video-red?style=flat&logo=youtube&logoColor=red' alt='Youtube Video'>
+    <img src='https://img.shields.io/badge/Video-Youtube-red?style=flat&logo=youtube&logoColor=red' alt='Youtube Video'>
   </a>
   <a href='https://tempeh.is.tue.mpg.de/index.html' style='padding-left: 0.5rem;'>
-    <img src='https://img.shields.io/badge/Project-Page-blue?style=flat&logo=Google%20chrome&logoColor=blue' alt='Project Page'>
+    <img src='https://img.shields.io/badge/Website-Project Page-blue?style=flat&logo=Google%20chrome&logoColor=blue' alt='Project Page'>
   </a>
   <a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a>
 </p>
