@@ -223,4 +223,7 @@ If you use code or data from this repository please cite:
 
 <h2 align="center">Acknowledgement</h2>
 
-Parts of the implementation of TEMPEH are based on [ToFU](https://github.com/tianyeli/tofu). 
+Parts of the implementation of TEMPEH are based on [ToFu](https://github.com/tianyeli/tofu). 
+Please see the ToFu repository for details on the initial implementation. 
+
+
