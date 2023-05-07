@@ -1,0 +1,14 @@
+testresources==2.0.1
+tensorboard==2.9.1
+imageio==2.21.1
+imageio-ffmpeg
+pyyaml==6.0
+scikit-image==0.19.3
+tk==0.1.0
+sklearn==0.0
+opendr==0.78
+trimesh==3.13.0
+pyrender==0.1.39
+setuptools==59.5.0
+pyglet==1.5.26
+
