@@ -51,7 +51,7 @@ This repository is the official implementation of the [CVPR 2023](https://cvpr20
 
 <div align="center">
   <a href="https://youtu.be/AolpvKpmjEw" target="_blank">
-    <img src="https://img.youtube.com/vi/AolpvKpmjEw/0.jpg" alt="TEMPEH" width="480" style="height: auto;" />
+    <img src="https://tempeh.is.tue.mpg.de/media/upload/TEMPEH_video_screenshot.png" alt="TEMPEH" width="1120" style="height: auto;" />
   </a>
 </div>
 
