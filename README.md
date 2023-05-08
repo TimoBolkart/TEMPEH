@@ -25,7 +25,7 @@ This repository is the official implementation of the [CVPR 2023](https://cvpr20
   <a href='https://ps.is.mpg.de/uploads_file/attachment/attachment/712/CVPR2023_Multiview_Face_Capture_supmat.pdf'>
     <img src='https://img.shields.io/badge/PDF-Sup.Mat.-2D963D?style=flat&logo=Adobe-Acrobat-Reader&logoColor=red' alt='Sup. Mat. PDF'>
   </a>     
-  <a href='TODO_ADD_YOUTUBE_LINK' style='padding-left: 0.5rem;'>
+  <a href='https://youtu.be/AolpvKpmjEw' style='padding-left: 0.5rem;'>
     <img src='https://img.shields.io/badge/Video-Youtube-red?style=flat&logo=youtube&logoColor=red' alt='Youtube Video'>
   </a>
   <a href='https://tempeh.is.tue.mpg.de/index.html' style='padding-left: 0.5rem;'>
@@ -50,8 +50,8 @@ This repository is the official implementation of the [CVPR 2023](https://cvpr20
 <h2 align="center">Video</h2>
 
 <div align="center">
-  <a href="https://youtu.be/XceCxf_GyW4" target="_blank">
-    <img src="https://img.youtube.com/vi/XceCxf_GyW4/0.jpg" alt="TEMPEH" width="480" style="height: auto;" />
+  <a href="https://youtu.be/AolpvKpmjEw" target="_blank">
+    <img src="https://youtu.be/AolpvKpmjEw/0.jpg" alt="TEMPEH" width="480" style="height: auto;" />
   </a>
 </div>
 
