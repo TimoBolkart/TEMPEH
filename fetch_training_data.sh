@@ -5,7 +5,7 @@ echo -e "\nBefore you continue, you must register at https://tempeh.is.tue.mpg.d
 read -p "Username (TEMPEH):" username
 read -p "Password (TEMPEH):" password
 
-download_dir="./data/downloads"
+download_dir='./data/downloads'
 output_dir='./data/training_data'
 
 ./fetch_training_images.sh "$username" "$password" "$download_dir" "$output_dir"

@@ -6,7 +6,7 @@ if [ "$#" -eq 0 ]; then
 	echo -e "\nBefore you continue, you must register at https://tempeh.is.tue.mpg.de/ and agree to the TEMPEH license terms."
 	read -p "Username (TEMPEH):" username
 	read -p "Password (TEMPEH):" password
-	download_dir="./data/downloads"
+	download_dir='./data/downloads'
 	output_dir='./data/training_data'
 else
 	username="$1"
@@ -20,6 +20,7 @@ password=$(urle "$password")
 
 mkdir -p "$download_dir"
 mkdir -p "$output_dir"
+
 
 echo -e "\nDownloading TEMPEH training scans"
 wget --post-data "username=$username&password=$password" 'https://download.is.tue.mpg.de/download.php?domain=tempeh&resume=1&sfile=training_data/scans/training_scan_samples.zip.001' -O "${download_dir}/training_scan_samples.zip.001" --no-check-certificate --continue

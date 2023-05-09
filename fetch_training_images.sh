@@ -5,8 +5,8 @@ if [ "$#" -eq 0 ]; then
 	echo -e "\nBefore you continue, you must register at https://tempeh.is.tue.mpg.de/ and agree to the TEMPEH license terms."
 	read -p "Username (TEMPEH):" username
 	read -p "Password (TEMPEH):" password
-	download_dir="./data/downloads"
-	output_dir="./data/training_data"
+	download_dir='./data/downloads'
+	output_dir='./data/training_data'
 else
 	username="$1"
 	password="$2"
