@@ -216,7 +216,7 @@ If you use code or data from this repository please cite:
   title={Instant Multi-View Head Capture through Learnable Registration},
   author={Timo Bolkart and Tianye Li and Michael J. Black},
   booktitle={Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages={},
+  pages={768-779},
   year={2023}
 }
 ```
