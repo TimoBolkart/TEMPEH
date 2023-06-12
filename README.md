@@ -36,16 +36,13 @@ This repository is the official implementation of the [CVPR 2023](https://cvpr20
 
 <h2 align="center">TL;DR</h2>
 
-<details>
-<summary>TEMPEH in a nutshell</summary>
-
 - TEMPEH reconstructs **3D heads in semantic correspondence** (i.e., in [FLAME](https://flame.is.tue.mpg.de/) mesh topology) directly from **calibrated multi-view images**.
 - Predicting one head takes about **0.3 seconds**.
 - TEMPEH leverages [ToFu's](https://tianyeli.github.io/tofu/paper.pdf) **volumetric feature sampling framework**.
 - **Self-supervised training from scans** overcomes ambiguous correspondence across subjects and imperfect correspondence across expressions.
 - A spatial transformer module **localizes the head in the feature volume**, which enables the handling of a large capture volumes by focusing on the region of interest.
 - A **surface-aware feature fusion** accounts for self-occlusions.
-</details>
+
 
 <h2 align="center">Video</h2>
 
@@ -56,6 +53,8 @@ This repository is the official implementation of the [CVPR 2023](https://cvpr20
 </div>
 
 
+
+
 <h2 align="center">Setup</h2>
 
 <details>
@@ -63,11 +62,14 @@ This repository is the official implementation of the [CVPR 2023](https://cvpr20
 
 TEMPEH is tested in a Python 3.7 environment with PyTorch 1.12.1 for CUDA 11.6.
 
-Set up and activate virtual environment:
+
+Set up and activate the virtual environment:
 ```
+# Set up virtualenv
 mkdir <your_home_dir>/.virtualenvs
 python3.7 -m venv <your_home_dir>/.virtualenvs/TEMPEH
 
+# Activate virtualenv 
 cd TEMPEH
 source <your_home_dir>/.virtualenvs/TEMPEH/bin/activate
 ```
@@ -98,12 +100,17 @@ pip install -r requirements.txt
 </details>
 
 
+
+
 <h2 align="center">Data</h2>
 
-<details>
-<summary>Data for testing and training TEMPEH. </summary>
+We provide the trained models, test and training set of the FaMoS dataset. For the datasets, you must register at [https://tempeh.is.tue.mpg.de/](https://tempeh.is.tue.mpg.de/) and agree to the TEMPEH license terms. Then you can use your login credential to download the datasets with the following scripts.
 
-#### Data for testing
+
+<details>
+<summary>Data for testing </summary>
+
+**Pretrained models**
 
 Fetch the pre-trained TEMPEH coarse (700 MB) and refinement models (600 MB) with:
 ```
@@ -111,11 +118,16 @@ Fetch the pre-trained TEMPEH coarse (700 MB) and refinement models (600 MB) with
 ```
 Running this will download the models into './data/downloads' and then extract them to './runs/coarse' and './runs/refinement'.
 
+
+**Example FaMoS test set**
+
 For downloading a small test set containing the data shown in the paper, run:
 ```
 ./fetch_test_subset.sh
 ```
 Running this will download the data into './data/downloads' and then extract the data to './data/test_data_subset'.
+
+**Full FaMoS test set**
 
 For downloading the entire FaMoS test dataset (18 GB), run:
 ```
@@ -123,15 +135,17 @@ For downloading the entire FaMoS test dataset (18 GB), run:
 ```
 Running this will download the data into './data/downloads' and then extract the data to './data/test_data'. The archives are extrated with [7z](https://www.7-zip.org/) which must be installed prior to running the script. 
 
-#### Data for training
+</details>
+
+
+<details>
+<summary>Data for training </summary>
 
 For downloading the FaMoS training dataset (images: 194 GB, scans: 205 GB, registrations: 86 GB), run:
 ```
 ./fetch_training_data.sh
 ```
-Running this will download the training data into './data/downloads' (default) and then extract the data to './data/training_data' (default). 
-To specifify different download and data directories, edit the 'fetch_training_data.sh' script. Extracting all data requires about 500 GB of disk space. 
-After running the script, ensure that all data packages are successfully downloaded, and that the extraction of the data was successful. 
+Running this will download the training data into './data/downloads' (default) and then extract the data to './data/training_data' (default). To specifify different download and data directories, edit the 'fetch_training_data.sh' script. Extracting all data requires about 500 GB of disk space. After running the script, ensure that all data packages are successfully downloaded, and that the extraction of the data was successful. 
 
 To download only images, scans, or registrations, run either of the following:
 ```
@@ -143,63 +157,104 @@ To download only images, scans, or registrations, run either of the following:
 </details>
 
 
+
+
 <h2 align="center">Demo</h2>
 
+
+TEMPEH predicts 3D faces from multi-view images in two stages, a coarse stage followed by a geometry refinement. We provide testing and training codes for TEMPEH.
+
 <details>
-<summary>Testing and training TEMPEH. </summary>
+<summary>Testing</summary>
 
-TEMPEH predicts 3D faces from multi-view images in two stages, a coarse stage followed by a geometry refinement. 
-
-
-#### Testing
-
-For testing on the small test set, run for the coarse stage inference:
+**Step 1: Coarse stage inference**
 ```
-python tester/test_global.py --coarse_model_run_dir './runs/coarse/coarse__TEMPEH_final' --data_list_fname './data/test_data_subset/paper_test_frames.json' --image_directory './data/test_data_subset/test_subset_images_4' --calibration_directory './data/test_data_subset/test_subset_calibrations' --out_dir './results/FaMoS_test_subset/coarse__TEMPEH_final'
-```
-and for the geometry refinement:
-```
-python tester/test_local.py --refinement_model_run_dir './runs/refinement/refinement_TEMPEH_final' --data_list_fname './data/test_data_subset/paper_test_frames.json' --coarse_prediction_root_dir './results/FaMoS_test_subset/coarse__TEMPEH_final' --image_directory './data/test_data_subset/test_subset_images_4' --calibration_directory './data/test_data_subset/test_subset_calibrations' --out_dir './results/FaMoS_test_subset/refinement__TEMPEH_final'
+python tester/test_global.py \
+--coarse_model_run_dir './runs/coarse/coarse__TEMPEH_final' \
+--data_list_fname './data/test_data_subset/paper_test_frames.json' \
+--image_directory './data/test_data_subset/test_subset_images_4' \
+--calibration_directory './data/test_data_subset/test_subset_calibrations' \
+--out_dir './results/FaMoS_test_subset/coarse__TEMPEH_final'
 ```
 
-#### Training
-
+**Step 2: Refinement stage inference**
+```
+python tester/test_local.py \
+--refinement_model_run_dir './runs/refinement/refinement_TEMPEH_final' \
+--data_list_fname './data/test_data_subset/paper_test_frames.json' \
+--coarse_prediction_root_dir './results/FaMoS_test_subset/coarse__TEMPEH_final' \
+--image_directory './data/test_data_subset/test_subset_images_4' \
+--calibration_directory './data/test_data_subset/test_subset_calibrations' \
+--out_dir './results/FaMoS_test_subset/refinement__TEMPEH_final'
+```
 </details>
 
-1) **Coarse stage training - Part 1.** 
-TEMPEH's coarse model is first trained fully-supervised with a vertex-to-vertex loss for 300K iterations. 
-Adapt the paths for the training data ```train-data-list-fname, val-data-list-fname, scan-directory, processed-directory, image-directory, calibration-directory``` in the ```option_handler/train_options_global.py``` and run:
+
+<details>
+<summary>Training</summary>
+
+**Step 1: Coarse stage training - Part 1**
+
+TEMPEH's coarse model is firstly pre-trained fully-supervised with a vertex-to-vertex loss for 300K iterations. 
+Adapt the paths for the training data `train-data-list-fname`, `val-data-list-fname`, `scan-directory`, `processed-directory`, `image-directory`, `calibration-directory` in the `option_handler/train_options_global.py` and run:
 ```
 python trainer/train_global.py --num-iterations 300000
 ```
-2) **Coarse stage training - Part 2.**
+
+**Step 2: Coarse stage training - Part 2**
+
 After pre-training, training TEMPEH additionally minimizes the point-to-surface distance and an edge-based regularization. 
-To resume the training, add the option ```--config-filename <CONFIG_FNAME>``` with the config file from pre-training (default: ```./runs/coarse/coarse__TEMPEH__<<DATE>>/config.json```) and run:
+To resume the training, add the option `--config-filename <CONFIG_FNAME>` with the config file from pre-training (default: `./runs/coarse/coarse__TEMPEH__<<DATE>>/config.json`) and run:
 ```
-python trainer/train_global.py --config-filename <CONFIG_FNAME> --num-iterations 800000 --weight-points2surface 10.0 --weight-edge-regularizer 1.0 --point-mask-weights '{"w_point_face": 0.0, "w_point_ears": 0.0, "w_point_eyeballs": 1.0, "w_point_eye_region": 0.0, "w_point_lips": 0.0, "w_point_neck": 0.0, "w_point_nostrils": 0.0, "w_point_scalp": 0.0,"w_point_boundary": 0.0}'
-```
-
-3) **Cache coarse training and validation predictions.**
-Prior to training the refinement model, output the predictions for all training and validationd data
-```
-python tester/test_global.py --coarse_model_run_dir './runs/coarse/coarse__TEMPEH__<<DATE>>' --data_list_fname './data/training_data/seventy_subj__all_seq_frames_per_seq_40_head_rot_120_train.json' --image_directory  './data/training_data/train_images_4' --calibration_directory './data/training_data/train_calibrations' --out_dir './results/FaMoS_training_predictions'
-```
-
-```
-python tester/test_global.py --coarse_model_run_dir './runs/coarse/coarse__TEMPEH__<<DATE>' --data_list_fname './data/training_data/eight_subj__all_seq_frames_per_seq_5_val.json' --image_directory  './data/training_data/train_images_4' --calibration_directory './data/training_data/train_calibrations' --out_dir './results/FaMoS_training_predictions'
+python trainer/train_global.py \
+--config-filename <CONFIG_FNAME> \
+--num-iterations 800000 \
+--weight-points2surface 10.0 \
+--weight-edge-regularizer 1.0 \
+--point-mask-weights '{"w_point_face": 0.0, "w_point_ears": 0.0, "w_point_eyeballs": 1.0, "w_point_eye_region": 0.0, "w_point_lips": 0.0, "w_point_neck": 0.0, "w_point_nostrils": 0.0, "w_point_scalp": 0.0,"w_point_boundary": 0.0}'
 ```
 
-4) **Refinement model training.**
-Adapt the paths for the training data ```train-data-list-fname, val-data-list-fname, scan-directory, processed-directory, image-directory, calibration-directory``` in the ```option_handler/train_options_local.py``` and run:
+**Step 3: Cache coarse training and validation predictions**
+
+Prior to training the refinement model, output the predictions for all training and validationd data:
 ```
-python trainer/train_local.py --global-model-root-dir './runs/coarse/coarse__TEMPEH__<<DATE>>' --global-registration-root-dir './results/FaMoS_training_predictions' --num-iterations 150000
+# training data
+python tester/test_global.py \
+--coarse_model_run_dir './runs/coarse/coarse__TEMPEH__<<DATE>>' \
+--data_list_fname './data/training_data/seventy_subj__all_seq_frames_per_seq_40_head_rot_120_train.json' \
+--image_directory  './data/training_data/train_images_4' \
+--calibration_directory './data/training_data/train_calibrations' \
+--out_dir './results/FaMoS_training_predictions'
+
+# validation data
+python tester/test_global.py \
+--coarse_model_run_dir './runs/coarse/coarse__TEMPEH__<<DATE>' \
+--data_list_fname './data/training_data/eight_subj__all_seq_frames_per_seq_5_val.json' \
+--image_directory  './data/training_data/train_images_4' \
+--calibration_directory './data/training_data/train_calibrations' \
+--out_dir './results/FaMoS_training_predictions'
 ```
 
-Training TEMPEH logs training errors, validation errors, and reconstruction renderings with Tensorboard in ```./runs/coarse/coarse__TEMPEH__<<DATE>/logs``` and ```./runs/refinement/refinement__TEMPEH__<<DATE>/logs```.
+**Step 4: Refinement model training**
 
-**Resuming training.**
-To resume training from a previously saved checkpoint, run 'python trainer/train_global.py' or 'python trainer/train_local.py' with the option ```--config-filename <CONFIG_FNAME>`` with the path of the config file of the trained model. 
-This will load all option from the config file and resume the training. 
+Adapt the paths for the training data `train-data-list-fname`, `val-data-list-fname`, `scan-directory`, `processed-directory`, `image-directory`, `calibration-directory` in the `option_handler/train_options_local.py` and run:
+```
+python trainer/train_local.py \
+--global-model-root-dir './runs/coarse/coarse__TEMPEH__<<DATE>>' \
+--global-registration-root-dir './results/FaMoS_training_predictions' \
+--num-iterations 150000
+```
+
+**Logging**
+
+Training TEMPEH logs training errors, validation errors, and reconstruction renderings with Tensorboard in `./runs/coarse/coarse__TEMPEH__<<DATE>/logs` and `./runs/refinement/refinement__TEMPEH__<<DATE>/logs`.
+
+**Resuming training**
+
+To resume training from a previously saved checkpoint, run `python trainer/train_global.py` or `python trainer/train_local.py` with the option `--config-filename <CONFIG_FNAME>` with the path of the config file of the trained model. This will load all option from the config file and resume the training. 
+
+</details>
+
 
 
 <h2 align="center">License</h2>
