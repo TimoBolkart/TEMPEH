@@ -163,10 +163,13 @@ To download only images, scans, or registrations, run either of the following:
 
 
 TEMPEH predicts 3D faces from multi-view images in two stages, a coarse stage followed by a geometry refinement. We provide testing and training codes for TEMPEH.
-
+TEMPEH was tested and trained on a compute unit with a NVIDIA A100-SXM 80 GB GPU and 16 CPU cores.
+  
 <details>
 <summary>Testing</summary>
 
+Testing TEMPEH requieres about 10 GB of GPU memory.
+  
 **Step 1: Coarse stage inference**
 ```
 python tester/test_global.py \
@@ -193,6 +196,8 @@ python tester/test_local.py \
 <details>
 <summary>Training</summary>
 
+Training TEMPEH requieres about 20/37 GB (coarse stage/refinement) of GPU memory.
+  
 **Step 1: Coarse stage training - Part 1**
 
 TEMPEH's coarse model is firstly pre-trained fully-supervised with a vertex-to-vertex loss for 300K iterations. 
